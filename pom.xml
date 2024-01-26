@@ -21,6 +21,8 @@
     <modules>
         <module>applicationRun</module>
         <module>project</module>
+        <module>project/config</module>
+        <module>project/ledger/web</module>
     </modules>
     <properties>
         <java.version>11</java.version>
