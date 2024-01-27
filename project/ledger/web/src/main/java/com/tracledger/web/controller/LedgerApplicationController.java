@@ -20,20 +20,32 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api")
 public class LedgerApplicationController {
+
     private static final Logger logger = LoggerFactory.getLogger(LedgerApplicationController.class);
+
+    static {
+        System.out.println("LedgerApplicationController..................");
+    }
 
     @Autowired
     private ICustomerService customerService;
     @Autowired
     private APIResponseService responseService;
 
+    @GetMapping(APIConstants.TEST_GET_API)
+    public APIResponse testGetApi() {
+        logger.info("GET request received for testGetApi");
+
+        return responseService.buildAPIResponse(HttpStatus.OK, "testGetApi is working successfully!");
+    }
+
     @PostMapping(APIConstants.ADD_CUSTOMER)
-    public APIResponse addCustomer(@RequestBody  CustomerEntity customer){
+    public APIResponse addCustomer(@RequestBody CustomerEntity customer) {
         //validate cust data
-        try{
+        try {
             customerService.addCustomer(customer);
             return responseService.buildAPIResponse(HttpStatus.OK, "Customer details Added");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return responseService.buildAPIResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getLocalizedMessage());
         }
