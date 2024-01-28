@@ -15,7 +15,7 @@ public class WorkEntriesEntity {
     Integer entry_id;
     Integer user_id ;
     Integer customer_id;
-    Integer instrument_id ;
+    String instrument_code ;
     Float work_hours;
     Float work_acres;
     Float net_charge ;
