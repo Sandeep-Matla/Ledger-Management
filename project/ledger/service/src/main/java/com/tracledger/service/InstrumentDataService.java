@@ -8,11 +8,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolationException;
 import java.security.InvalidParameterException;
 
-@Component
+@Service
 public class InstrumentDataService implements IInstrumentDataService {
 
     private static final Logger logger = LoggerFactory.getLogger(InstrumentDataService.class);

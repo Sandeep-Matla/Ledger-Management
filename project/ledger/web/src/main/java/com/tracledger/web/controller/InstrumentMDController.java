@@ -1,8 +1,6 @@
 package com.tracledger.web.controller;
 
-import com.tracledger.api.service.ICustomerService;
 import com.tracledger.api.service.IInstrumentDataService;
-import com.tracledger.dsp.entity.CustomerEntity;
 import com.tracledger.dsp.entity.InstrumentEntity;
 import com.tracledger.web.Utils.APIResponse;
 import com.tracledger.web.Utils.APIResponseService;
@@ -11,75 +9,27 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.InvalidParameterException;
-import java.util.List;
 import java.util.Map;
 
-import static com.tracledger.web.Utils.APIConstants.*;
+import static com.tracledger.web.Utils.APIConstants.ADD_INSTRUMENT;
+import static com.tracledger.web.Utils.APIConstants.UPDATE_INSTRUMENT_PRICE;
+
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api/tlm")
-public class LedgerApplicationController {
+public class InstrumentMDController {
 
-    private static final Logger logger = LoggerFactory.getLogger(LedgerApplicationController.class);
-
-    @Autowired
-    private ICustomerService customerService;
-    @Autowired
-    private APIResponseService responseService;
+    private static final Logger logger = LoggerFactory.getLogger(InstrumentMDController.class);
     @Autowired
     private IInstrumentDataService instrumentDataService;
-    @GetMapping(TEST_GET_API)
-    public APIResponse testGetApi() {
-        logger.info("GET request received for testGetApi");
-
-        return responseService.buildAPIResponse(HttpStatus.OK, "testGetApi is working successfully!");
-    }
-
-    @PostMapping(ADD_CUSTOMER)
-    public APIResponse addCustomer(@RequestBody CustomerEntity customer) {
-        //validate cust data
-        try {
-            customerService.addCustomer(customer);
-            return responseService.buildAPIResponse(HttpStatus.OK, "Customer details Added");
-        } catch (Throwable e) {
-            e.printStackTrace();
-            return responseService.buildAPIResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getLocalizedMessage());
-        }
-    }
-
-    @GetMapping(GET_ALL_CUSTOMERS_DEATAILS)
-    public APIResponse getAllCustomers(){
-        try{
-            Iterable<CustomerEntity> customers = customerService.getAllCustomerDetails();
-
-            return responseService.buildAPIResponse(HttpStatus.OK,
-                    customers);
-        }catch (Throwable e){
-            e.printStackTrace();
-            return responseService.buildAPIResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getLocalizedMessage());
-        }
-    }
-
-    @GetMapping(GET_ALL_CUSTOMERS_NAMES)
-    public APIResponse getAllCustomerFullNames(){
-        try{
-            Iterable<CustomerEntity> customers = customerService.getAllCustomerDetails();
-            List<String> fullNames = CustomerEntity.getFullNamesOfCustomers(customers);
-            return responseService.buildAPIResponse(HttpStatus.OK,
-                    fullNames);
-        }catch (Throwable e){
-            e.printStackTrace();
-            return responseService.buildAPIResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getLocalizedMessage());
-        }
-    }
+    @Autowired
+    private APIResponseService responseService;
 
 
     @PostMapping(ADD_INSTRUMENT)
