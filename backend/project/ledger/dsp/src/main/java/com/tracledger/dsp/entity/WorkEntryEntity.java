@@ -15,7 +15,7 @@ import java.util.Date;
 @Entity
 @Data
 @Table(name = "work_entries")
-@SecondaryTable(name = "customer_info", pkJoinColumns = @PrimaryKeyJoinColumn(name = "entry_id"))
+@SecondaryTable(name = "customer_info", pkJoinColumns = @PrimaryKeyJoinColumn(name = "customer_id"))
 
 public class WorkEntryEntity {
 
